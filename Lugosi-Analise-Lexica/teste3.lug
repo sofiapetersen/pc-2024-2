@@ -1,0 +1,12 @@
+void main{
+    let int a;
+    let int b;
+    let int c;
+    let float media;
+    a := 7;
+    b := 9;
+    c := 5;
+    media := (((a + b) + c) / 3);
+    printIO media;
+
+}
