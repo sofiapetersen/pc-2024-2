@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
 class CodeGen{
 
 	int interpretaCodigo (ArvoreSintatica arv)
@@ -61,4 +64,12 @@ class CodeGen{
 
 	return "";
 	}
+
+	void geraArquivo(ArvoreSintatica arv, String filename) {
+        try (FileWriter writer = new FileWriter(filename)) {
+            writer.write(geraCodigo(arv));
+        } catch (IOException e) {
+            System.out.println("Erro ao gerar o arquivo: " + e.getMessage());
+        }
+    }
 }
