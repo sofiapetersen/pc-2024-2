@@ -8,12 +8,18 @@ class Compilador {
             
             arv = as.parseProg();
             
-            CodeGen backend = new CodeGen();
-            int codigo = backend.interpretaCodigo(arv);
-            System.out.println("Resultado: " + codigo);
             
+            // GERA CODIGO
+            CodeGen backend = new CodeGen();
+            String codigo = backend.geraCodigo(arv);
+            System.out.println(codigo);
             backend.geraArquivo(arv, "testePilha");
-            System.out.println("Código gerado e salvo em testePilha");
+            System.out.println("Código salvo em testePilha");
+            
+            // INTERPRETADOR
+            int resultado = backend.interpretaCodigo(arv);
+            System.out.println("Resultado: " + resultado);
+
         } catch (Exception e) {
             System.out.println("Erro de compilação:\n" + e);
         }

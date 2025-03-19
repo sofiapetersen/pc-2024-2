@@ -1,0 +1,12 @@
+void main {
+    let float resultado;
+    let float num1;
+    let float num2;
+
+    num1 := 7.5;
+    num2 := 2.5;
+    
+    resultado := ((num1 * num2) + 3.0);
+    
+    printIO resultado;
+}

@@ -1,0 +1,26 @@
+void main{
+    let float a;
+    let float b;
+    let float maior;
+    let float contador;
+
+    a := 15;
+    b := 20;
+    contador := 0;
+
+    maior := Max(a, b);
+
+    while (contador < maior) do {
+        printIO contador;
+        contador := (contador + 1);
+    };
+
+    printIO contador;
+}
+
+def float Max(float x, float y) {
+    if (x > y) {
+        return x;
+    };
+    return y;
+}

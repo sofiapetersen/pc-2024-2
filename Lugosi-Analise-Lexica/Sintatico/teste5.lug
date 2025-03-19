@@ -1,0 +1,27 @@
+void main{
+    let int a;
+    let int b;
+    let int maior;
+    let int contador;
+
+    a := 15;
+    b := 20;
+    contador := 0;
+
+    if (a > b) {
+        maior := a;
+    };
+
+    while (contador < maior) do {
+        printIO contador;
+        contador := (contador + 1);
+    };
+
+    printIO contador;
+}
+
+def int max(int x, int y) {
+    if (x > y) {
+        return x;
+    };
+}

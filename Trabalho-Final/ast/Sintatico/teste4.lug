@@ -1,0 +1,27 @@
+void main{
+    let int a;
+    let int b;
+    let int c;
+    let int d;
+    let int e;
+    let float media;
+    let float soma;
+    let float produto;
+    let float diferenca;
+
+    a := 10;
+    b := 20;
+    c := 30;
+    d := 40;
+
+    soma := ((a + b) + (c + d));
+    produto := ((a * b) * (c * d));
+    diferenca := ((d - c) - (b - a));
+    media := (soma / 4);
+
+    printIO soma;
+    printIO produto;
+    printIO diferenca;
+    printIO quociente;
+    printIO media;
+}

@@ -1,0 +1,234 @@
+PARSER_BEGIN(Lugosi)
+import java.io.*;
+public class Lugosi {
+
+  public static void main(String args[]) throws ParseException,IOException {
+    
+ Lugosi analisador = new Lugosi(new FileInputStream(args[0]));
+ analisador.Lugosi();
+  }
+
+}
+
+PARSER_END(Lugosi)
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+}
+
+TOKEN :
+{
+  <MAIN: "main">
+| <ACHAVES: "{">
+| <FCHAVES: "}">
+| <VOID: "void">
+| <VAR: "var">
+| <PONTOEVIRGULA: ";">
+| <INT: "int">
+| <FLOAT: "float">
+| <BOOL: "bool">
+| <LET: "let">
+| <DOISPONTOSIGUAL: ":=">
+| <APARENTESES: "(">
+| <FPARENTESES: ")">
+| <IF: "if">
+| <WHILE: "while">
+| <DO: "do">
+| <RETURN: "return">
+| <PRINTIO: "printIO">
+| <TRUE: "true">
+| <FALSE: "false">
+| <SUM: "+">
+| <SUB: "-">
+| <MULT: "*">
+| <DIV: "/">
+| <AND: "&&">
+| <OR: "||">
+| <MENOR: "<">
+| <MAIOR: ">">
+| <IGUAL: "==">
+| <VIRGULA: ",">
+| <FUNCAO: "function">
+| <READIO: "readIO">
+| <DEF: "def">
+| <TOKEN_ID: ["a"-"z","A"-"Z"] (["a"-"z","A"-"Z"] | ["0"-"9"])* ("_" (["a"-"z","A"-"Z"] | ["0"-"9"])+)*>
+| <TOKEN_NUMLIT: (["0"-"9"])+ ("."(["0"-"9"])+)? ("E"("+"|"-")? (["0"-"9"])+)?>
+
+}
+
+TOKEN :
+{
+  <NUM : (["0"-"9"])+>
+|< ID: ["a"-"z","A"-"Z"] ( ["a"-"z","A"-"Z","0"-"9"])*>
+
+}
+
+void Lugosi() : 
+{}
+{
+
+Main() (Funcao())?
+<EOF>
+
+}
+
+
+void Main () :
+{}
+{
+<VOID> <MAIN> <ACHAVES> VarDecl() SeqComandos() <FCHAVES>
+}
+
+
+void VarDecl () :
+{}
+{
+(<LET> Tipo() <TOKEN_ID> <PONTOEVIRGULA>)*
+}
+
+void Tipo () :
+{}
+{
+<FLOAT> | <BOOL> | <VOID> | <INT>
+}
+
+
+void SeqComandos() :
+{}
+{
+(Comando())*
+}
+
+void Comando() :
+{}
+{
+<TOKEN_ID> ComandoTokenID()
+| <IF> Expressao() <ACHAVES> SeqComandos() <FCHAVES> <PONTOEVIRGULA>
+| <WHILE> Expressao() <DO> <ACHAVES> SeqComandos() <FCHAVES>  <PONTOEVIRGULA>
+| <RETURN> Expressao() <PONTOEVIRGULA>
+| <PRINTIO> Expressao() <PONTOEVIRGULA>
+
+}
+
+void ComandoTokenID() :
+{}
+{
+<DOISPONTOSIGUAL> ComandoTokenIDAttrib()
+| <APARENTESES> (ListaExpressao())? <FPARENTESES> <PONTOEVIRGULA>
+}
+
+void ComandoTokenIDAttrib() :
+{}
+{
+Expressao() <PONTOEVIRGULA>
+| <READIO> <APARENTESES> <FPARENTESES> <PONTOEVIRGULA>
+}
+
+
+void Expressao() :
+{}
+{
+<APARENTESES> Expressao() OP() Expressao() <FPARENTESES> | Fator()
+}
+
+
+void Fator() :
+{}
+{
+<TOKEN_ID> Fator_() | <TOKEN_NUMLIT> | <TRUE> | <FALSE>
+}
+
+void Fator_() :
+{}
+{
+(<APARENTESES> (ListaExpressao())? <FPARENTESES>)?
+}
+
+
+void OP() :
+{}
+{
+<SUM> | <SUB> | <MULT> | <DIV> | <AND> | <OR> | <MENOR> | <MAIOR> | <IGUAL>
+}
+
+
+void ListaExpressao() :
+{}
+{
+Expressao() (<VIRGULA> Expressao())*
+}
+
+void Funcao() :
+{}
+{
+(<DEF> Tipo() <TOKEN_ID> <APARENTESES> (ListaArg())? <FPARENTESES> <ACHAVES> VarDecl() SeqComandos() <FCHAVES>)+
+}
+
+void ListaArg() :
+{}
+{
+Tipo() <TOKEN_ID> (<VIRGULA> Tipo() <TOKEN_ID>)*
+}
+
+
+void Atribuicao() :
+{}
+{
+
+  <DOISPONTOSIGUAL> Expressao() <PONTOEVIRGULA>
+
+}
+
+
+void If() :
+{}
+{
+  
+  <IF> <APARENTESES> Expressao() <FPARENTESES> <ACHAVES> SeqComandos() <FCHAVES> <PONTOEVIRGULA>
+  
+}
+
+void While() :
+{}
+{
+  
+  <WHILE> <APARENTESES> Expressao() <FPARENTESES> <DO> <ACHAVES> SeqComandos() <FCHAVES> <PONTOEVIRGULA>
+  
+}
+
+void Do() :
+{}
+{
+  
+  <DO> <ACHAVES> SeqComandos() <FCHAVES> <WHILE> <APARENTESES> Expressao() <FPARENTESES> <PONTOEVIRGULA>
+  
+}
+
+void Return() :
+{}
+{
+  
+  <RETURN> Expressao() <PONTOEVIRGULA>
+  
+}
+
+void Print() :
+{}
+{
+  
+  <PRINTIO> <APARENTESES> Expressao() <FPARENTESES> <PONTOEVIRGULA>
+  
+} 
+
+
+void ChamadaFuncao() :
+{}
+{
+
+  <APARENTESES> (ListaExpressao())? <FPARENTESES> <PONTOEVIRGULA>
+
+}
