@@ -15,7 +15,6 @@ public class CAtribuicao extends Comando{
 
     @Override
 	public void geraCodigo(PrintWriter out, int nivelIndent) {
-	String indentacao = "    ".repeat(nivelIndent);
     out.print(var + " = ");
     exp.geraCodigo(out, nivelIndent);
     out.println(";");
