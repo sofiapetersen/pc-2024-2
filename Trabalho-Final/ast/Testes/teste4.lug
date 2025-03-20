@@ -1,0 +1,23 @@
+void main {
+    let float n;
+    let float i;
+
+    n := 10;
+    i := 0;
+
+    while (i < n) do {
+        printIO Fibonacci(i);
+        i := (i + 1);
+    };
+}
+
+def float Fibonacci(float x) {
+    if (x == 0) {
+        return 0;
+    };
+    if (x == 1) {
+        return 1;
+    };
+
+    return (Fibonacci(x - 1) + Fibonacci(x - 2));
+}

@@ -1,0 +1,27 @@
+void main {
+    let float n;
+    let float fatorial;
+    let float i;
+
+    n := 5;
+    fatorial := Factorial(n);
+    i := 1;
+
+    while (i < (fatorial + 1)) do {
+        i := (i + 1);
+    };
+
+    printIO fatorial;
+}
+
+def float Factorial(float x) {
+    let float resultado;
+    resultado := 1;
+
+    while (x > 1) do {
+        resultado := (resultado * x);
+        x := (x - 1);
+    };
+
+    return resultado;
+}

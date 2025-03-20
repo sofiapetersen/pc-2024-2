@@ -1,0 +1,30 @@
+void main {
+    let float n;
+    let float soma;
+    let float i;
+
+    n := 10;
+    soma := SomaPares(n);
+    i := 2;
+
+    while (i < (soma + 1)) do {
+        i := (i + 2);
+    };
+
+    printIO soma;
+}
+
+def float SomaPares(float x) {
+    let float resultado;
+    let float i;
+    
+    resultado := 0;
+    i := 2;
+
+    while (i < (x + 1)) do {
+        resultado := (resultado + i);
+        i := (i + 2);
+    };
+
+    return resultado;
+}
